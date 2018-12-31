@@ -1,36 +1,31 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FlexLayoutModule, BREAKPOINT} from '@angular/flex-layout';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
-import {RoutingModule} from './routing.module';
-import {AppComponent} from './app.component';
-import {DemoMaterialModule} from './material.module';
-import {WatermarkComponent} from './watermark.component';
+import {AppRoutingModule} from './app-routing.module';
 
-const EXTRA_BREAKPOINT = [{
-  alias: 'xs.landscape',
-  suffix: 'XsLandscape',
-  mediaQuery: 'screen and (orientation: landscape) and (max-width: 559px)',
-  priority: 1000,
-  overlapping: false
-}];
+import {AppComponent} from './app-shell/app.component';
+import {CustomMaterialModule} from './custom-material.module';
+import {LAYOUT_CONFIG, BREAKPOINT_PROVIDERS} from './utils/breakpoints/custom-breakpoint';
+import {DemoUtilsModule} from './utils/demo-utils.module';
+
+
 
 @NgModule({
   declarations: [
-    AppComponent, WatermarkComponent
+    AppComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({appId: 'serverApp'}),
     BrowserAnimationsModule,
-    RoutingModule,
-    DemoMaterialModule,
-    FlexLayoutModule.withConfig({
-      useColumnBasisZero: false,
-      printWithBreakpoints: ['md', 'lt-lg', 'lt-xl', 'gt-sm', 'gt-xs']
-    }),
+    CustomMaterialModule,
+    AppRoutingModule,
+    DemoUtilsModule,
+    FlexLayoutModule.withConfig(LAYOUT_CONFIG),
   ],
-  providers: [{provide: BREAKPOINT, useValue: EXTRA_BREAKPOINT, multi: true}],
+  providers: [ ...BREAKPOINT_PROVIDERS ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

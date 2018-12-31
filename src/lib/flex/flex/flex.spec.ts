@@ -63,7 +63,7 @@ describe('flex directive', () => {
   });
 
   afterEach(() => {
-    matchMedia.clearAll();
+    matchMedia && matchMedia.clearAll();
   });
 
   describe('with static features', () => {
@@ -910,7 +910,7 @@ describe('flex directive', () => {
     });
 
     afterEach(() => {
-      matchMedia.clearAll();
+      matchMedia && matchMedia.clearAll();
     });
 
     it('should work with non-direct-parent fxLayouts', fakeAsync(() => {
